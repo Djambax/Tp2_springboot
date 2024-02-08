@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<li th:each="employee : ${employees}" th:attr="style=${'background:'+employee.fonction.codeCouleur}" th:text="${employee.name}">Nom de l'employé</li>
+<form th:action="@{/addemployee}" th:object="${employee}" method="post">
+    <div>
+        <label for="name">Nom:</label>
+        <input type="text" th:field="*{name}" id="name"/>
+    </div>
+    <div>
+        <label for="address">Adresse:</label>
+        <input type="text" th:field="*{address}" id="address"/>
+    </div>
+    <div>
+        <label for="email">Email:</label>
+        <input type="email" th:field="*{email}" id="email"/>
+    </div>
+    <div>
+        <label for="phone">Téléphone:</label>
+        <input type="tel" th:field="*{phone}" id="phone"/> <!-- Notez aussi le changement de type à "tel" pour le numéro de téléphone -->
+    </div>
+    <div>
+        <label for="fonction">Fonction:</label>
+        <select th:field="*{fonction}" id="fonction">
+            <option th:each="fonction : ${T(fr.devavance.tp_spring_boot_partie2.beans.Fonction).values()}" th:value="${fonction}" th:text="${fonction}"></option>
+        </select>
+    </div>
+    <div>
+        <button type="submit">Ajouter</button>
+    </div>
+</form>
+
+</body>
+</html>
